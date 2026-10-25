@@ -1,0 +1,69 @@
+<?php
+// ============================================================
+// config/secrets.example.php
+//
+// TEMPLATE — copy this file to config/secrets.php and fill in
+// YOUR OWN values. config/secrets.php is gitignored on purpose:
+// it never gets committed or pushed, so everyone's local
+// database password / mail credentials / security key stay
+// private to their own machine.
+//
+// SETUP:
+//   1. Copy this file:  config/secrets.php
+//   2. Edit the values below to match your own setup.
+//   3. That's it — config/init.php loads it automatically.
+// ============================================================
+
+// --- Database credentials ---
+// Laragon default: user 'root', empty password. XAMPP is the same
+// unless you changed it. Adjust if your local MySQL is different.
+define('DB_HOST',    'localhost');
+define('DB_NAME',    'kapehan_amang');
+define('DB_USER',    'root');
+define('DB_PASS',    '');
+define('DB_CHARSET', 'utf8mb4');
+
+// --- Project folder name ---
+// Must match the folder name you cloned this project into, as it
+// appears in your browser's address bar before "/public".
+// e.g. if you browse to http://localhost/kapehan/public/..., leave
+// this as '/kapehan/public'. If your folder is named differently
+// (e.g. "kapehan-pos"), change it to match.
+define('APP_BASE_PATH', '/kapehan-amang/public');
+
+// --- Mail (SMTP) credentials — only needed for OTP / password-reset emails ---
+// 1. Enable 2-Factor Authentication on the Gmail account you'll send from.
+// 2. Google Account > Security > App passwords > generate one for "Mail".
+// 3. Paste the 16-character app password below (NOT your regular Gmail password).
+// If you don't need working emails for local dev, you can leave these as
+// placeholders — the app will log a warning and skip sending instead of
+// crashing (see includes/mail.php).
+define('MAIL_USERNAME', 'harina.ara.eccbsinfotech@gmail.com');
+define('MAIL_PASSWORD', 'roho nmir dzbz gyob');
+define('MAIL_FROM',     'harina.ara.eccbsinfotech@gmail.com');
+
+// --- App security key ---
+// Signs QR pickup-claim codes (HMAC). Generate your own random value —
+// do not reuse this placeholder, and do not reuse any value that has
+// ever been committed to git or shared outside the team.
+// Quick way to generate one: run this in a terminal with PHP installed:
+//   php -r "echo bin2hex(random_bytes(32));"
+define('APP_KEY', 'c8f059d65398886b5fdc7b46643dbd65399b09cc34d56d833e381fb89cade5a5');
+
+// --- Customer GCash payments ---
+// OPTIONAL DEFAULTS. The shop admin can set/change the GCash recipient name
+// and number from Admin > Settings (stored in the database), which takes
+// priority over these. They're only used until an admin saves a value.
+define('GCASH_PAYMENT_NAME', 'Kapehan Amang');
+define('GCASH_PAYMENT_NUMBER', '0994 559 0623');
+
+// --- PayMongo (online GCash payments) ---
+// OPTIONAL. Leave PAYMONGO_SECRET_KEY empty to keep using the manual GCash
+// reference-number flow. To turn online payments on, see docs/PAYMONGO_SETUP.md.
+// Use the TEST keys (sk_test_...) while developing/demoing - no real money moves.
+// NEVER commit real keys. This file is gitignored; keep it that way.
+define('PAYMONGO_SECRET_KEY', '');      // sk_test_xxxxxxxxxxxxxxxx
+define('PAYMONGO_WEBHOOK_SECRET', '');  // whsk_xxxxxxxxxxxxxxxx (shown when you create the webhook)
+// Only needed on Windows/XAMPP if PayMongo calls fail with "SSL certificate problem":
+// full path to a cacert.pem file, e.g. 'C:/xampp/php/extras/ssl/cacert.pem'
+define('PAYMONGO_CA_BUNDLE', '');
